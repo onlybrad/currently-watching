@@ -1,3 +1,4 @@
+
 module.exports = {
     /**
      * 
@@ -14,12 +15,11 @@ module.exports = {
                 }
             });
     
-            if(!res.ok) {
-                throw new Error(res.status);
-                return null;
-            }
+            if(!res.ok) return null;
 
             const json = await res.json();
+
+            console.log(json);
 
             return json.data.map(entry => entry.node.title);
 

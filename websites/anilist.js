@@ -40,12 +40,11 @@ module.exports = {
                 body
             });
     
-            if(!res.ok) {
-                throw new Error(res.status);
-                return null;
-            }
+            if(!res.ok) return null;
             
             const json = await res.json();
+
+            console.log(json);
             
             return json.data.anime.lists[0].entries.map(entry => entry.media.title.romaji);
 
