@@ -1,0 +1,17 @@
+{
+  "name": "currently-watching",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node -r dotenv/config index.js"
+  },
+  "author": "Only_Brad",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.5.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3"
+  }
+}
