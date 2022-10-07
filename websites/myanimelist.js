@@ -14,7 +14,10 @@ module.exports = {
                 }
             });
     
-            if(!res.ok) return null;
+            if(!res.ok) {
+                throw new Error(res.status);
+                return null;
+            }
 
             const json = await res.json();
 
