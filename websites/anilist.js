@@ -43,8 +43,6 @@ module.exports = {
             if(!res.ok) return null;
             
             const json = await res.json();
-
-            console.log(json);
             
             return json.data.anime.lists[0].entries.map(entry => entry.media.title.romaji);
 

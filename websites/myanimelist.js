@@ -19,8 +19,6 @@ module.exports = {
 
             const json = await res.json();
 
-            console.log(json);
-
             return json.data.map(entry => entry.node.title);
 
         } catch(err) {
