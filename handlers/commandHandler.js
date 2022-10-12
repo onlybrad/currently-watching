@@ -3,6 +3,7 @@ const { getCurrentlyWatching: anilistCurrentlyWatching } = require("../websites/
 const { getCurrentlyWatching: malCurrentlyWatching } = require("../websites/myanimelist");
 
 const COMMAND_PREFIX = "!cw";
+const COMMAND_REGEX = new RegExp(`${COMMAND_PREFIX} ([^\s]*) (mal|anilist)?$`);
 
 /**
  * @param {string} userName 
@@ -34,17 +35,30 @@ const COMMAND_PREFIX = "!cw";
 }
 
 module.exports = async function(message) {
-    if(
-        !message.content.startsWith(COMMAND_PREFIX)           || //doesn't start with the prefix
-        message.content.charAt(COMMAND_PREFIX.length) !== " " || //no space between the prefix and the username
-        message.content.length < COMMAND_PREFIX.length + 2       //the command must be at least 2 characters more than the prefix
-    ) return;
+    if(!message.content.startsWith(COMMAND_PREFIX)) return;
 
-    const userName = message.content.substring(COMMAND_PREFIX.length + 1);
-    const [anilistResults,malResults] = await Promise.all([
-        anilistCurrentlyWatching(userName),
-        malCurrentlyWatching(userName)
-    ]);
+    const match = message.content.match(COMMAND_REGEX);
 
-    message.channel.send(createMessage(userName, anilistResults, malResults));
+    if(!match) return;
+
+    const [,userName,website] = match;
+
+    if(!userName) return;
+
+    if(!website) {
+        const [anilistResults,malResults] = await Promise.all([
+            anilistCurrentlyWatching(userName),
+            malCurrentlyWatching(userName)
+        ]);
+    
+        return message.channel.send(createMessage(userName, anilistResults, malResults));
+    }
+
+    if(website.toLowerCase() === "mal") {
+        return message.channel.send(createMessage(userName,null,await malCurrentlyWatching(userName)));
+    }
+
+    if(website.toLowerCase() === "anilist") {
+        return message.channel.send(createMessage(userName,await anilistCurrentlyWatching(userName)),null);
+    }
 }
