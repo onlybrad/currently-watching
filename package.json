@@ -9,7 +9,8 @@
   "author": "Only_Brad",
   "license": "MIT",
   "dependencies": {
-    "discord.js": "^14.5.0"
+    "discord.js": "^14.5.0",
+    "firebase": "^8.6.8"
   },
   "engines": {
     "node": "18.x"

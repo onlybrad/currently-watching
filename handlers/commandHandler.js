@@ -54,11 +54,11 @@ module.exports = async function(message) {
         return message.channel.send(createMessage(userName, anilistResults, malResults));
     }
 
-    if(website.toLowerCase() === "mal") {
+    if(website === "mal") {
         return message.channel.send(createMessage(userName,null,await malCurrentlyWatching(userName)));
     }
 
-    if(website.toLowerCase() === "anilist") {
+    if(website === "anilist") {
         return message.channel.send(createMessage(userName,await anilistCurrentlyWatching(userName)),null);
     }
 }

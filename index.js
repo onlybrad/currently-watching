@@ -9,6 +9,7 @@ const client = new Client({intents: [
 ]});
 
 client.on("messageCreate", commandHandler);
+client.on("ready", () => console("Running."));
 client.login(process.env.DISCORD_BOT_TOKEN);
 
 process.removeAllListeners("warning");
